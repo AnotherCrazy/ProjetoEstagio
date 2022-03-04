@@ -10,7 +10,7 @@ session_start();
 	<body>
 		<a href="index.php">Cadastrar de cliente</a><br>
 		<a href="listar.php">Lista de clientes</a><br>
-		<a href="edit.php">Editar dados do clientes</a><br>
+
 		<h1>Cadastrar de cliente</h1>
 		<?php
 		if(isset($_SESSION['msg'])){
