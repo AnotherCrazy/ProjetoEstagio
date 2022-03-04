@@ -5,12 +5,13 @@ session_start();
 <html lang="pt-br">
 	<head>
 		<meta charset="utf-8">
-		<title>CRUD - Cadastrar</title>		
+		<title>Cadastrar de cliente</title>		
 	</head>
 	<body>
-		<a href="index.php">Cadastrar</a><br>
+		<a href="index.php">Cadastrar de cliente</a><br>
 		<a href="listar.php">Lista de clientes</a><br>
-		<h1>Cadastrar Usuário</h1>
+		<a href="edit.php">Editar dados do clientes</a><br>
+		<h1>Cadastrar de cliente</h1>
 		<?php
 		if(isset($_SESSION['msg'])){
 			echo $_SESSION['msg'];

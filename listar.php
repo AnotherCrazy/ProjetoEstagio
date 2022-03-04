@@ -7,11 +7,12 @@ include_once ("conexao.php");
 <html lang="pt-br">
 	<head>
 		<meta charset="utf-8">
-		<title>CRUD - Lista de clientes</title>		
+		<title>Lista de clientes</title>		
 	</head>
 	<body>
-		<a href="index.php">Cadastrar</a><br>
+		<a href="index.php">Cadastrar de cliente</a><br>
 		<a href="listar.php">Lista de clientes</a><br>
+		<a href="edit.php">Editar dados do clientes</a><br>
 		<h1>Lista de clientes</h1>
 		<?php
 		if(isset($_SESSION['msg'])){
@@ -46,6 +47,7 @@ include_once ("conexao.php");
 				echo "Nome:" . $row_usuario ['nome'] . "<br>";
 				echo "cpf:" . $row_usuario ['cpf'] . "<br>";
 				echo "Data de nascimento:" . $row_usuario ['nascimento'] . "<br><hr>";
+				echo "<a href='edit.php?id=" . $row_usuario ['id'] . "'>Alterar</a><br><hr>";
 
 		}
 		//Fim da configuração de paginação 			
