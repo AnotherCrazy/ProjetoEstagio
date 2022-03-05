@@ -1,12 +1,6 @@
 <?php
-session_start();
-include_once("conexao.php");
-$id = filter_input (INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-$result_usuario = "SELECT * FROM usuarios WHERE id = '$id'";
-$resultado_usuario = mysqli_query($conn, $result_usuario);
-$row_usuario = mysqli_fetch_assoc($resultado_usuario);
+include_once "conexao.php";
 ?>
-<!DOCTYPE html>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -19,8 +13,9 @@ $row_usuario = mysqli_fetch_assoc($resultado_usuario);
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Cadastrar de cliente</title>	
   </head>
-  <body>
-  <div>
+	<body>
+		
+	<div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Painel de controle de cliente</a>
@@ -28,15 +23,15 @@ $row_usuario = mysqli_fetch_assoc($resultado_usuario);
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+		<ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link  " aria-current="page" href="index.php">Cadastro</a>
+              <a class="nav-link " aria-current="page" href="index.php">Cadastro</a>
             </li>
             <li class="nav-item">
               <a class="nav-link " href="listar.php">Lista de clientes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pesquisar.php">Pesquisar pelo nome do clientes</a>
+              <a class="nav-link active" href="pesquisar.php">Pesquisar pelo nome do clientes</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="pesquisar_por_cpf.php">Pesquisar pelo CPF do clientes</a>
@@ -49,31 +44,36 @@ $row_usuario = mysqli_fetch_assoc($resultado_usuario);
       </div>
     </nav>
   </div>
-		<?php
-		if(isset($_SESSION['msg'])){
-			echo $_SESSION['msg'];
-			unset($_SESSION['msg']);
-		}
-		?>
+	<br>	
+  <h1 style="font-size: 50px; text-align:center; font-style: italic;" >Buscar pelo nome do cliente</h1>
+<br><hr style="height:5px;border-width:0;color:gray;background-color:gray">
 
-		<br>
-		<h1 style="font-size: 50px; text-align:center; font-style: italic;" >Alteração nos dados do cliente</h1>
-		<br><hr style="height:5px;border-width:0;color:gray;background-color:gray">
-		<form method="POST" action="proc_edit_usuario.php">
-		<input type="hidden" name="id" value="<?php echo $row_usuario['id']; ?>">
-<br>
-			<label>Nome: </label>
-			<input type="text" name="nome" placeholder="Digite o nome completo" value="<?php echo $row_usuario['nome']; ?>"><br><br>
+		<form method="POST" action="">
+    <label>Nome: </label>
+			<input type="text" name="nome" placeholder="Digite o nome"><br><br>
 
-			<label>CPF </label>
-			<input type="text" name="cpf" placeholder="Digite seu cpf" value="<?php echo $row_usuario['cpf']; ?>"><br><br>
+      <button type="submit" name="enviar" value="Pesquisar" class="btn btn-primary">Buscar</button>
+      <hr>  
+		</form><br><br>
+</form>
 
-			<label>Data de nascimento </label>
-			<input type="date" name="nascimento" placeholder="Digite sua data de nascimento" value="<?php echo $row_usuario['nascimento']; ?>"><br><br>
-			
-			<br>
-		    <button type="submit" class="btn btn-primary">Alterar</button>
-		</form>
-		<hr>
+        <?php
+        $enviar = filter_input(INPUT_POST, 'enviar', FILTER_SANITIZE_STRING);
+        if($enviar) {
+			$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+			$result_usuario = "SELECT * FROM usuarios WHERE nome LIKE '%$nome%'";
+			$resultado_usuario = mysqli_query($conn, $result_usuario);
+			while($row_usuario = mysqli_fetch_assoc($resultado_usuario)){
+			        	echo "ID: " . $row_usuario['id'] . "<br>";
+                echo "nome: " . $row_usuario['nome'] . "<br>";
+                echo "cpf: " . $row_usuario['cpf'] . "<br>";
+                echo "nascimento: " . $row_usuario['nascimento'] . "<br>";
+                echo "<a href='edit.php?id=" . $row_usuario['id'] . "'>Editar</a><br>";
+			        	echo "<a href='proc_apagar_usuario.php?id=" . $row_usuario['id'] . "'>Apagar</a><br><hr>";
+
+            }
+        }
+        
+        ?>
 	</body>
 </html>

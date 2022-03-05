@@ -1,0 +1,12 @@
+/* Seleciona qualquer <a> que poderá ser visitado */
+a:visited {
+    color: blue;
+  }
+
+  a:hover {
+   color: gray;
+  }
+
+ a{
+     text-decoration: none;
+ }
